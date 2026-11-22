@@ -33,7 +33,8 @@ const mbBox = ({ x, y, s, night, up, animate, letters = false }) => {
   const pv = `${fx + 1.5} 24`;
   const turn = up && animate ? `<animateTransform attributeName="transform" type="rotate" values="-90 ${pv};-90 ${pv};0 ${pv};0 ${pv}" keyTimes="0;.2;.45;1" dur="${MB_LOOP}s" repeatCount="indefinite"/>` : "";
   const flag = `<g transform="${up ? "" : `rotate(-90 ${pv})`}"><rect x="${fx}" y="-12" width="3" height="36" fill="${night ? "#8c96a3" : "#7b8794"}"/><path d="M${fx + 3} -12 h14 v9 h-14z" fill="#e03131"/>${turn}</g>`;
-  const mail = letters ? `<rect x="4" y="18" width="20" height="11" rx="1.5" fill="#fff"/><path d="M4 18 l10 6 l10 -6" fill="none" stroke="#c9ced6" stroke-width="1"/>` : "";
+  // The letter, inside the box's mouth (its bottom at 28): it never hangs below the box.
+  const mail = letters ? `<rect x="4" y="15" width="20" height="11" rx="1.5" fill="#fff"/><path d="M4 15 l10 6 l10 -6" fill="none" stroke="#c9ced6" stroke-width="1"/>` : "";
   return `<g transform="translate(${x} ${y}) scale(${s})">
       <path d="M0 14 a14 14 0 0 1 28 0 v14 h-28 z" fill="${dark}"/>${mail}
       <path d="M0 28 h44 v-14 a14 14 0 0 0 -14 -14 h-16 a14 14 0 0 1 14 14" fill="${light}"/>
