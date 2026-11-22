@@ -1,6 +1,6 @@
 {
   "name": "ha-mailbox-card",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An illustrated Lovelace card for a connected mailbox in Home Assistant: the flag up when mail has come, the time it came, the parcels expected today and the week.",
   "repository": {
     "type": "git",
