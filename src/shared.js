@@ -485,8 +485,8 @@ const mbEvents = (history, mailId, doorId, collected = null) => {
   return { arrivals, collects };
 };
 
-// The Parcel deliveries expected today (out for delivery, or expected today, or delivered today): name, carrier,
-// status key and the end of the expected window.
+// The Parcel deliveries of today: out for delivery, or expected today whatever their status (a parcel expected today
+// and delivered stays, marked delivered); name, carrier, status key and the end of the expected window.
 const mbParcels = (st, now) => {
   const list = st?.attributes?.deliveries;
   if (!Array.isArray(list)) return [];

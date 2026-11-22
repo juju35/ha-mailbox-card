@@ -369,11 +369,10 @@ class MailboxCard extends RcCard {
   }
 
   _bindAfter(root) {
-    const m = this._items;
     for (const b of root.querySelectorAll(".xt[data-id]") || []) b.addEventListener("click", () => rcMoreInfo(this, b.dataset.id));
     root.querySelector(".act-collect")?.addEventListener("click", (ev) => {
       ev.stopPropagation();
-      this._collectNow(m);
+      this._collectNow();
     });
   }
 
@@ -456,7 +455,7 @@ class MailboxCard extends RcCard {
     .banner .zoom:hover { background: rgba(255,255,255,.75); color: #33506b; }
     .banner.night .zoom:hover { background: rgba(255,255,255,.22); color: #fff; }
     .banner .tt { min-width: 0; flex: 1 1 auto; }
-    /* Status pill right after the title (see sfPlacePill). */
+    /* Status pill right after the title (see mbPlacePill). */
     .trow { display: flex; align-items: center; gap: 8px; min-width: 0; }
     .trow > .title { flex: 0 1 auto; min-width: 0; }
     .trow > .bpill, .trow > .pill { flex: none; max-width: none; }
