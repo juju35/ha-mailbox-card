@@ -314,7 +314,7 @@ class MailboxCard extends RcCard {
     const tiles = [
       tile("t_arrived", arrived, "", day, m.id),
       m.pid && tile("t_parcels", String(m.parcels.length), this._t("today"), this._t("from_parcel"), m.pid),
-      tile("t_week", String(m.weekDays), "", this._tn("days_mail", m.weekDays), m.id),
+      tile("week", String(m.weekDays), "", this._tn("days_mail", m.weekDays), m.id),
     ].filter(Boolean);
     return `<div class="tiles" style="--n:${tiles.length}">${tiles.join("")}</div>`;
   }
