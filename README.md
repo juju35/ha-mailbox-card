@@ -144,13 +144,14 @@ door: binary_sensor.mailbox_door
 
 ## How it works
 
-- **Mail sensor**: `entity`, else the first `binary_sensor` named like a mailbox (*mail*, *letter*, *courrier*, *boîte*, *Briefkasten*…), never its door
+- **Mail sensor**: `entity`, else the first `binary_sensor` with a word starting like a mailbox (*mail*, *letter*, *courrier*, *boîte*, *Briefkasten*…; never *gmail* or *e-mail*), never its door
 - **Deliveries**: the mail sensor's turns on over the last 7 days (`history/history_during_period`, fetched at first, every 5 minutes and when a sensor changes), one per 10 minutes, none within 2 minutes of a collection
 - **Collections**: the door's turns on, and the `collected` helper's time (an `input_button`'s state, an `input_datetime`'s timestamp)
 - **State**: *Mail* when the last delivery came after the last collection; *Collected* when the mail was collected today; else *Empty*, with the last mail
 - **Without `door` nor `collected`**: nothing tells the mail was collected, so it counts as collected at midnight: *Mail* until the end of the day, *Empty* the next day
 - **Without the history** (no recorder): the mail sensor on is mail since its last change
 - **Parcels**: the deliveries of `parcels` (else the Parcel integration's sensor) out for delivery, or expected today
+- **Refresh**: the card redraws on each change of its sensors; the last 7 days are fetched again every 5 minutes and when a sensor changes
 - **Actions**: `input_button.press` or `input_datetime.set_datetime` on the `collected` helper, nothing else
 
 ## Development
