@@ -106,8 +106,9 @@ class MailboxCard extends RcCard {
     if (this._fitFrame) cancelAnimationFrame(this._fitFrame);
   }
 
+  // Without `entity`: the first mail sensor of the home, looked for again only when the registry changes.
   _mailId() {
-    return this._config.entity || mbSensors(this._hass)[0];
+    return this._config.entity || rcMemo((this._memo ||= {}), "mail", [this._hass.entities], () => mbSensors(this._hass))[0];
   }
 
   // The Parcel deliveries sensor: `parcels`, else the Parcel integration's.

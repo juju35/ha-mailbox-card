@@ -33,6 +33,21 @@ test("both cards are registered, with their editors and a picker entry", () => {
   assert.deepEqual(json(mb.window.customCards.map((c) => c.type)), ["mailbox-card", "mailbox-mini-card"]);
 });
 
+
+test("mail sensors: a word starting like a mailbox, never gmail, e-mail or compost", () => {
+  const h = makeHass();
+  for (const id of ["binary_sensor.gmail_unread", "binary_sensor.e_mail_alert", "binary_sensor.compost_full", "binary_sensor.front_mailbox_flap", "binary_sensor.garage_mailbox"])
+    h.states[id] = st(id, "off", { friendly_name: id === "binary_sensor.e_mail_alert" ? "E-mail alert" : "" });
+  const ids = mb.mbSensors(h);
+  assert.ok(ids.includes("binary_sensor.front_mailbox_flap"));
+  assert.ok(ids.includes("binary_sensor.garage_mailbox"), "a word ending in e before it");
+  for (const id of ["binary_sensor.gmail_unread", "binary_sensor.compost_full"]) assert.ok(!ids.includes(id), id);
+  assert.ok(!ids.includes("binary_sensor.e_mail_alert"), "E-mail alert");
+  const named = (name) => mb.mbSensors({ states: { "binary_sensor.x": st("binary_sensor.x", "off", { friendly_name: name }) } }).length === 1;
+  assert.ok(named("Boîte aux lettres"));
+  assert.ok(named("Почтовый ящик"));
+  assert.ok(!named("New e-mail"));
+});
 test("discovery: binary sensors named like a mailbox, not its door", () => {
   const h = makeHass();
   assert.deepEqual(json(mb.mbSensors(h)), ["binary_sensor.mailbox_vibration"]);

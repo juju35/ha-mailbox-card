@@ -437,7 +437,8 @@ const RC_I18N = {
 // helper (an input_button, whose state is the time it was pressed, or an input_datetime set to now). The events of
 // the last 7 days come from the history (history/history_during_period). The parcels expected today come from the
 // Parcel integration's deliveries sensor, when there is one.
-const MB_NAME = /mail|letter|post|courrier|bo[iî]te|lettres|briefkasten|buz[oó]n|cassetta|brievenbus|skrzynk|schr[aá]nk|pošt|почт|γραμματ/i;
+// A mailbox's name: a word starting with one of these (so never "gmail", "e-mail", "e_mail", "compost").
+const MB_NAME = /(?<!\p{L}|(?<!\p{L})e[-_ ])(?:mail|letter|post|courrier|bo[iî]te|lettres|briefkasten|buz[oó]n|cassetta|brievenbus|skrzynk|schr[aá]nk|pošt|почт|γραμματ)/iu;
 // Taps closer than this make one delivery (a flap swinging, a vibration sensor's bursts).
 const MB_DEBOUNCE = 10 * 60 * 1000;
 // Mail sensor events this close to a collection are the door being opened, not mail.
