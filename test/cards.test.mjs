@@ -71,7 +71,7 @@ test("full card: mail waiting, its time, the flag up, the tiles, the parcels and
   assert.match(html, /<span class="bpt">Mail<\/span>/);
   assert.match(html, /<div class="subt">Arrived at 10:42\s?AM<\/div>/);
   assert.match(html, /<span class="hh">You&#39;ve got mail<\/span>/);
-  assert.match(html, /Not collected yet · 5 h ago/);
+  assert.match(html, /Not collected yet · 5 hr\. ago/, "Intl's relative time");
   assert.doesNotMatch(html, /act-collect/, "no helper: no Collected button");
   assert.match(html, /<span class="xl">Parcels<\/span><span class="xv">2<small>today<\/small>/);
   assert.match(html, /<b>Running shoes<\/b><span>Colissimo · Out for delivery<\/span><\/span><span class="pr">by 1:00\s?PM<\/span>/);
@@ -111,6 +111,17 @@ test("without the history: the sensor's last change", async () => {
   const card = await make("mailbox-card", MAIL, h);
   assert.equal(card._items.state, "mail");
   assert.equal(card._items.lastA, at(0, 9));
+});
+
+test("plurals: the parcels and the days with mail, in Polish, Slovenian and Latvian", async () => {
+  const pl = await make("mailbox-card", { ...MAIL, language: "pl" });
+  assert.deepEqual([1, 2, 5, 22].map((n) => pl._tn("parcels", n)), ["1 paczka", "2 paczki", "5 paczek", "22 paczki"]);
+  assert.deepEqual([1, 3, 5].map((n) => pl._tn("days_mail", n)), ["dzień z pocztą", "dni z pocztą", "dni z pocztą"]);
+  assert.match(pl._ago(NOW - 26 * 3.6e6, NOW), /1 dzień temu/);
+  const sl = await make("mailbox-card", { ...MAIL, language: "sl" });
+  assert.deepEqual([1, 2, 3, 5].map((n) => sl._tn("parcels", n)), ["1 paket", "2 paketa", "3 paketi", "5 paketov"]);
+  const lv = await make("mailbox-card", { ...MAIL, language: "lv" });
+  assert.deepEqual([1, 2, 10].map((n) => lv._tn("parcels", n)), ["1 sūtījums", "2 sūtījumi", "10 sūtījumu"]);
 });
 
 test("the tiles open their sensor's details", async () => {

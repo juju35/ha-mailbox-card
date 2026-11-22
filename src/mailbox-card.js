@@ -169,11 +169,15 @@ class MailboxCard extends RcCard {
     return `${this._time(t, { weekday: "short" })} ${this._hm(t)}`;
   }
 
+  // How long ago, in minutes, hours or days: the language's own words and plurals (Intl).
   _ago(t, now) {
     const m = Math.max(0, Math.round((now - t) / 60000));
-    if (m < 60) return this._t("ago_min", { n: m });
-    if (m < 24 * 60) return this._t("ago_h", { n: Math.floor(m / 60) });
-    return this._t("ago_d", { n: Math.floor(m / 1440) });
+    const [v, unit] = m < 60 ? [m, "minute"] : m < 24 * 60 ? [Math.floor(m / 60), "hour"] : [Math.floor(m / 1440), "day"];
+    try {
+      return new Intl.RelativeTimeFormat(this._lang(), { numeric: "always", style: "short" }).format(-v, unit);
+    } catch {
+      return `-${v} ${unit}`;
+    }
   }
 
   // The time the helper was last set: an input_button's state, an input_datetime's timestamp.
@@ -310,7 +314,7 @@ class MailboxCard extends RcCard {
     const tiles = [
       tile("t_arrived", arrived, "", day, m.id),
       m.pid && tile("t_parcels", String(m.parcels.length), this._t("today"), this._t("from_parcel"), m.pid),
-      tile("t_week", String(m.weekDays), "", this._t("days_mail"), m.id),
+      tile("t_week", String(m.weekDays), "", this._tn("days_mail", m.weekDays), m.id),
     ].filter(Boolean);
     return `<div class="tiles" style="--n:${tiles.length}">${tiles.join("")}</div>`;
   }
@@ -540,7 +544,7 @@ class MailboxMiniCard extends rcMini(MailboxCard, "mailbox-mini-card", "") {
     const first =
       m.none ? this._t("no_sensor") : m.state === "mail" ? this._t("waiting_since", { t: this._when(m.lastA, m.now) }) : m.lastA != null ? this._t("last_mail", { d: this._when(m.lastA, m.now) }) : this._t("no_mail");
     const n = m.parcels.length;
-    const chips = chip(first, m.id) + (n ? chip(n === 1 ? this._t("parcels_one") : this._t("parcels_many", { n }), m.pid) : "");
+    const chips = chip(first, m.id) + (n ? chip(this._tn("parcels", n), m.pid) : "");
     const c = this._config;
     this.shadowRoot.innerHTML = `<style>${RC_BASE_STYLES}${this.constructor.styles}</style>
       <ha-card class="lvl-${m.state} bn">${this._banner(m, `<div class="rs">${chips}</div>`, m.none ? "" : status, m.none ? "" : this._week(m, " wkm"))}</ha-card>`;
