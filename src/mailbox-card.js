@@ -501,7 +501,7 @@ class MailboxCard extends RcCard {
     .banner .wk.wkm .wd.on .wc { background: #e03131; }
     .banner .wk.wkm .wd.td .wc { box-shadow: 0 0 0 2px #fff; }
     .banner .wk.wkm .wl { display: none; }
-    @container (max-width: 340px) { .banner .wk.wkm { display: none; } }
+    @container (max-width: 340px) { .banner .wk.wkm { display: none; } ha-card.bn > .banner .head { padding-right: 34px; } }
   `;
 }
 
