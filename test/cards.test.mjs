@@ -93,6 +93,17 @@ test("collected: by the door, or by the Collected button's helper", async () => 
   assert.equal(pressed._items.state, "collected");
 });
 
+test("without a door nor a helper: the mail counts as collected at midnight", async () => {
+  const only = { entity: "binary_sensor.mailbox_vibration" };
+  const today = await make("mailbox-card", only, makeHass({ mail: [at(0, 10, 42)], door: [] }));
+  assert.equal(today._items.state, "mail");
+  const old = await make("mailbox-card", only, makeHass({ mail: [at(-1, 10, 42)], door: [] }));
+  assert.equal(old._items.state, "empty", "yesterday's mail");
+  assert.match(old.shadowRoot.innerHTML, /Last mail yesterday 10:42/);
+  const door = await make("mailbox-card", MAIL, makeHass({ mail: [at(-1, 10, 42)], door: [] }));
+  assert.equal(door._items.state, "mail", "with a door, the mail waits for it");
+});
+
 test("empty: the last mail; unavailable; no sensor", async () => {
   const empty = await make("mailbox-card", MAIL, makeHass({ mail: [at(-2, 9, 30)], door: [at(-2, 18)] }));
   assert.equal(empty._items.state, "empty");

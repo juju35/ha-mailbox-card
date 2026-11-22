@@ -213,7 +213,9 @@ class MailboxCard extends RcCard {
     let state;
     if (!id) state = "none";
     else if (!st || ["unavailable", "unknown"].includes(st.state)) state = "offline";
-    else if (lastA != null && (lastC == null || lastA > lastC)) state = "mail";
+    // Without a door sensor nor a `collected` helper nothing tells the mail was collected: it counts as collected at
+    // midnight, the box empty again the next day.
+    else if (lastA != null && (lastC == null || lastA > lastC) && (c.door || c.collected || lastA >= d0)) state = "mail";
     else if (lastC != null && lastC >= d0) state = "collected";
     else state = "empty";
     const week = Array.from({ length: 7 }, (_, i) => {
