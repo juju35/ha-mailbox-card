@@ -495,7 +495,7 @@ class MailboxCard extends RcCard {
     .banner .r { flex: none; line-height: 20px; padding: 0 7px; color: var(--bt); background: rgba(255,255,255,.62); }
     .banner.night .r { background: rgba(10,20,40,.4); }
     /* The mini card's week: on the banner's right, in place of the fence. */
-    .banner .wk.wkm { position: absolute; right: 40px; bottom: 18px; width: min(150px, 34%); gap: 3px; }
+    .banner .wk.wkm { position: absolute; right: 34px; bottom: 18px; width: min(150px, 34%); gap: 3px; }
     .banner .wk.wkm .wc { height: 22px; border-radius: 5px; background: rgba(59,91,120,.3); }
     .banner.night .wk.wkm .wc { background: rgba(255,255,255,.28); }
     .banner .wk.wkm .wd.on .wc { background: #e03131; }
