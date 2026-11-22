@@ -421,7 +421,7 @@ class MailboxCard extends RcCard {
     .pr.ok { color: color-mix(in srgb, #2f9e44 65%, var(--primary-text-color, #212121)); }
     .wk { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
     .wd { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0; }
-    .wc { width: 100%; height: 22px; border-radius: 6px; background: rgba(127,127,127,.18); }
+    .wc { width: 100%; height: 22px; border-radius: 6px; background: rgba(127,127,127,.35); }
     .wd.on .wc { background: #e03131; }
     .wd.td .wc { box-shadow: 0 0 0 2px var(--card-background-color, #fff), 0 0 0 3px var(--primary-text-color); }
     .wl { font-size: 11px; color: var(--secondary-text-color); }
@@ -496,8 +496,8 @@ class MailboxCard extends RcCard {
     .banner.night .r { background: rgba(10,20,40,.4); }
     /* The mini card's week: on the banner's right, in place of the fence. */
     .banner .wk.wkm { position: absolute; right: 40px; bottom: 18px; width: min(150px, 34%); gap: 3px; }
-    .banner .wk.wkm .wc { height: 22px; border-radius: 5px; background: rgba(255,255,255,.8); }
-    .banner.night .wk.wkm .wc { background: rgba(255,255,255,.14); }
+    .banner .wk.wkm .wc { height: 22px; border-radius: 5px; background: rgba(59,91,120,.3); }
+    .banner.night .wk.wkm .wc { background: rgba(255,255,255,.28); }
     .banner .wk.wkm .wd.on .wc { background: #e03131; }
     .banner .wk.wkm .wd.td .wc { box-shadow: 0 0 0 2px #fff; }
     .banner .wk.wkm .wl { display: none; }
