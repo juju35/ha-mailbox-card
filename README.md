@@ -52,7 +52,7 @@ Any opening, vibration or motion `binary_sensor` on the mailbox works, from any 
 | <img src="https://raw.githubusercontent.com/juju35/ha-mailbox-card/main/images/mqtt.png" alt="MQTT" height="16"> | [MQTT](https://www.home-assistant.io/integrations/mqtt/) (built in) | Zigbee2MQTT sensors |
 | <img src="https://raw.githubusercontent.com/juju35/ha-mailbox-card/main/images/esphome.png" alt="ESPHome" height="16"> | [ESPHome](https://www.home-assistant.io/integrations/esphome/) (built in) | DIY mailbox sensors (reed switch, ToF, load cell) |
 | <img src="https://raw.githubusercontent.com/juju35/ha-mailbox-card/main/images/zwave-js.png" alt="Z-Wave" height="16"> | [Z-Wave](https://www.home-assistant.io/integrations/zwave_js/) (built in) | Z-Wave door sensors |
-|  | [Parcel](https://github.com/juju35/ha-parcel) (Marketplace) | The parcels expected today, from its deliveries sensor |
+| <img src="https://raw.githubusercontent.com/juju35/ha-mailbox-card/main/images/parcel.png" alt="" height="16"> | [Parcel](https://github.com/juju35/ha-parcel) (Marketplace) | The parcels expected today, from its deliveries sensor |
 
 ## Installation
 
