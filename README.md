@@ -69,7 +69,7 @@ Or manually:
 3. Open **Mailbox Card** and click **Install**
 4. Clear your browser cache and refresh
 
-The Marketplace registers the dashboard resource for you.
+The Marketplace registers the dashboard resource for you: `/local/community/ha-mailbox-card/ha-mailbox-card.js`.
 
 ### Manual
 
